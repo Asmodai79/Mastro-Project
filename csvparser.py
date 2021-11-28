@@ -7,10 +7,10 @@ def readcsvFile(filename):
             print(', '.join(row))
 
     with open(filename, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
+        reader = csv.DictReader(csvfile, delimiter=';')
         for row in reader:
             try:
-                print("file di test semplice " + row['organization'], row['alone'])
-                print("file di test complesso " + row['CLIENTE,'], row['LOTTO,'])
+                # print("file di test semplice " + row['organization'], row['alone'])
+                print("file di test complesso " + row['CLIENTE'], row['LOTTO'])
             except:
                 print("keys not found")
