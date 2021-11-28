@@ -2,27 +2,19 @@ import os
 import sys
 from csvparser import readcsvFile
 
-def sanitizeInput(file):
-    if file.endswith('.csv'):
-        return True
-    else:
-        return False
-
-try:
-    directory_name=sys.argv[1]
-    print(directory_name)
-except:
-    print('Please pass directory_name')
-
-fileList = os.listdir(directory_name)
-for file in fileList:
-    if sanitizeInput(file):
-        print( " valid file: " + file)
-        readcsvFile(file)
-    else:
-        print( " invalid file: " + file)
+def do_stuff():
+    if len(sys.argv) < 2:
+        print('Missing <dirname> parameter', file=sys.stderr)
+        sys.exit(1)
+    dir_name = sys.argv[1]
+    files_list = os.listdir(dir_name)
+    for f in files_list:
+        if f.lower().endswith('.csv'):
+            readcsvFile(os.path.join(dir_name, f))
 
 
-
-
-
+if __name__ == "__main__":
+    try:
+        do_stuff()
+    except Exception as ex:
+        print(f'An error occurred: {ex}', file=sys.stderr)
